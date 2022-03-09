@@ -27,7 +27,7 @@ exports.create = (req, res) => {
           message:
             err.message || "Error in creating user."
         });
-      else res.send(data);
+      else res.send("Successfully added user.");
     });
   };
 // Retrieve all Users from the database
