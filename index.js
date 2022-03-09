@@ -1,4 +1,5 @@
 require('dotenv').config()
+const db = require("./models/db.js");
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -8,6 +9,9 @@ var corsOptions = {
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(express.json());
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync database.");
+});
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 // simple route
