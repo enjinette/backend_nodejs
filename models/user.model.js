@@ -1,9 +1,14 @@
 const sql = require("./db.js");
 // constructor
 const User = function(user) {
-  this.title = user.title;
-  this.description = user.description;
-  this.published = user.published;
+    this.firstname = user.firstname,
+    this.lastname = user.lastname,
+    this.address = user.address,
+    this.postcode = user.postcode,
+    this.contactno = user.contactno,
+    this.email = user.email,
+    this.username = user.username,
+    this.password = user.password
 };
 User.create = (newUser, result) => {
   sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
@@ -47,3 +52,4 @@ User.getAll = (title, result) => {
     result(null, res);
   });
 };
+module.exports = User;
