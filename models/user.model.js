@@ -21,27 +21,9 @@ User.create = (newUser, result) => {
     result(null, { id: res.insertId, ...newUser });
   });
 };
-User.findById = (id, result) => {
-  sql.query(`SELECT * FROM users WHERE id = ${id}`, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-    if (res.length) {
-      console.log("found user: ", res[0]);
-      result(null, res[0]);
-      return;
-    }
-    // not found User with the id
-    result({ kind: "not_found" }, null);
-  });
-};
-User.getAll = (title, result) => {
+
+User.getAll = (result) => {
   let query = "SELECT * FROM users";
-  if (title) {
-    query += ` WHERE title LIKE '%${title}%'`;
-  }
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -52,4 +34,60 @@ User.getAll = (title, result) => {
     result(null, res);
   });
 };
+
+User.updateById = (id, user, result) => {
+  sql.query(
+    "UPDATE users SET firstname = ?, lastname = ?, address = ? , postcode = ? , contactno = ? , email = ? , username = ?, password = ? WHERE id = ?",
+    [user.firstname, user.lastname, user.address, user.postcode, user.contactno, user.email, user.username,user.password, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+      if (res.affectedRows == 0) {
+        // not found Tutorial with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+      console.log("updated user: ", { id: id, ...user });
+      result(null, { id: id, ...user });
+    }
+  );
+};
+
+User.remove = (id, result) => {
+  sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    if (res.affectedRows == 0) {
+      // not found User with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
+    console.log("deleted user with id: ", id);
+    result(null, res);
+  });
+};
+
+User.removeMultiple = (array_id, result) => {
+  sql.query("DELETE FROM users WHERE id IN (?)", [array_id], (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    if (res.affectedRows == 0) {
+      // not found User with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
+    console.log("Deleted multiple users.");
+    result(null, res);
+  });
+};
+
 module.exports = User;
