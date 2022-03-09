@@ -17,7 +17,7 @@
 | PORT | 8000 |
 
 # Libraries
-Express
-Sequelize
-Cors
-bcrypt
+- Express
+- Sequelize
+- Cors
+- bcrypt
