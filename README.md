@@ -11,10 +11,10 @@
 | KEY | VALUE |
 | ----------- | ----------- |
 | HOST | localhost |
-| DB_USER | root |
-| DB_PASSWORD | admin |
-| DB | usersdb |
-| PORT | 8000 |
+| DB_USER | *your_db_user* |
+| DB_PASSWORD | *your_db_password* |
+| DB | *your_db_name* |
+| PORT | *your_port* |
 
 # Libraries
 - Express

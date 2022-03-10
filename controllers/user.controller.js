@@ -81,7 +81,7 @@ exports.delete = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "User was deleted successfully!"
+          message: "User was deleted successfully."
         });
       } else {
         res.send({
@@ -102,10 +102,9 @@ exports.deleteMultiple = (req, res) => {
     where: { id: req.body.array_id }
   })
     .then(num => {
-      console.log('num', num)
       if (num > 0) {
         res.send({
-          message: "Users were deleted successfully!"
+          message: "Users were deleted successfully."
         });
       } else {
         res.send({
