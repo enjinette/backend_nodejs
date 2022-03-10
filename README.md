@@ -21,3 +21,8 @@
 - Sequelize
 - Cors
 - bcrypt
+
+# Testing
+1. `npm test`
+
+*NOTE: Export file from Postman is also provided, please check test_api.postman_collection.json in /test_scripts*
